@@ -1,28 +1,41 @@
-import { useState } from 'react'
+import { useEffect } from "react";
+import { Nav, Footer } from "./components/NavFooter";
+import Hero from "./components/Hero";
+import Servicios from "./components/Servicios";
+import SobreNosotros from "./components/SobreNosotros";
+import Reservas from "./components/Reservas";
 
 function App() {
-  const [count, setCount] = useState(0)
+  useEffect(() => {
+    // SEO básicos al montar
+    document.title = "Barbería Imperium | Estilo, tradición y lujo masculino";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute(
+        "content",
+        "Descubre una experiencia de barbería premium en el corazón de la ciudad. Barbería Imperium: cortes clásicos, afeitados de precisión y atención de lujo."
+      );
+    } else {
+      const m = document.createElement("meta");
+      m.name = "description";
+      m.content =
+        "Descubre una experiencia de barbería premium en el corazón de la ciudad. Barbería Imperium: cortes clásicos, afeitados de precisión y atención de lujo.";
+      document.head.appendChild(m);
+    }
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
+    <div className="min-h-screen bg-neutral-950">
+      <Nav />
+      <main>
+        <Hero />
+        <Servicios />
+        <SobreNosotros />
+        <Reservas />
+      </main>
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
